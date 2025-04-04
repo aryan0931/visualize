@@ -236,11 +236,27 @@ class GeoPlot:
             options["visualization_type"],
         )
 
-    def render(self, state_trajectory):
+    def render(self, state_trajectory): 
+        
+        """
+        Reads the simulation history and creates a map-based visualization.
+
+        Args:
+        state_trajectory: A list of episodes and steps showing how things changed over time.
+        It includes locations (coordinates) and values (like money spent) from each step.
+
+        Creates:
+           - A GeoJSON file with the data
+           - An HTML file that shows the data on a 3D map using Cesium
+           
+        """
+
         coords, values = [], []
         name = self.config["simulation_metadata"]["name"]
         geodata_path, geoplot_path = f"{name}.geojson", f"{name}.html"
+        
         # Iterate over all episodes in the trajectory
+        
         for i in range(0, len(state_trajectory) - 1):
             final_state = state_trajectory[i][-1]  # Get the final state of the episode
             # Read the coordinates and values from the state
